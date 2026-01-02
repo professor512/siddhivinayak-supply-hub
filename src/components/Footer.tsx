@@ -37,16 +37,14 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
-                <span className="text-xl font-bold text-primary-foreground">S</span>
-              </div>
-              <div>
-                <span className="text-lg font-bold">Siddhivinayak</span>
-                <span className="block text-xs text-background/60">Enterprises</span>
-              </div>
+              <img
+                src="/logo.png"
+                alt="Siddhivinayak Enterprise Logo"
+                className="h-11 w-auto object-contain w-64"
+              />
             </div>
             <p className="text-background/70 text-sm leading-relaxed mb-6">
-              One Stop Solution For All Your Needs. Your trusted partner for industrial 
+              One Stop Solution For All Your Needs. Your trusted partner for industrial
               materials, safety equipment, and more.
             </p>
             <a

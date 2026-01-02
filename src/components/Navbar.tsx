@@ -29,31 +29,26 @@ const Navbar = () => {
   ];
 
   return (
-    <header 
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled 
-          ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border" 
+    <header
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${isScrolled
+          ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="container flex h-20 items-center justify-between">
         {/* Logo */}
-        <button 
+        {/* Logo */}
+        <button
           onClick={() => scrollToSection("home")}
-          className="flex items-center gap-3"
+          className="flex items-center"
         >
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary">
-            <span className="text-xl font-bold text-primary-foreground">S</span>
-          </div>
-          <div className="hidden sm:block">
-            <span className={`text-lg font-bold transition-colors ${isScrolled ? "text-foreground" : "text-secondary-foreground"}`}>
-              Siddhivinayak
-            </span>
-            <span className={`block text-xs transition-colors ${isScrolled ? "text-muted-foreground" : "text-secondary-foreground/70"}`}>
-              Enterprises
-            </span>
-          </div>
+          <img
+            src="/logo.png"
+            alt="Siddhivinayak Enterprise Logo"
+            className="h-11 w-auto object-contain"
+          />
         </button>
+
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
@@ -61,9 +56,8 @@ const Navbar = () => {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                isScrolled ? "text-muted-foreground" : "text-secondary-foreground/80"
-              }`}
+              className={`text-sm font-medium transition-colors hover:text-primary ${isScrolled ? "text-muted-foreground" : "text-secondary-foreground/80"
+                }`}
             >
               {link.name}
             </button>
@@ -72,11 +66,10 @@ const Navbar = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-4">
-          <a 
-            href="tel:+91" 
-            className={`flex items-center gap-2 text-sm transition-colors hover:text-primary ${
-              isScrolled ? "text-muted-foreground" : "text-secondary-foreground/80"
-            }`}
+          <a
+            href="tel:+91"
+            className={`flex items-center gap-2 text-sm transition-colors hover:text-primary ${isScrolled ? "text-muted-foreground" : "text-secondary-foreground/80"
+              }`}
           >
             <Phone className="h-4 w-4" />
             <span>Call Us</span>
@@ -112,8 +105,8 @@ const Navbar = () => {
                 {link.name}
               </button>
             ))}
-            <Button 
-              className="mt-4" 
+            <Button
+              className="mt-4"
               onClick={() => {
                 scrollToSection("contact");
                 setIsOpen(false);
