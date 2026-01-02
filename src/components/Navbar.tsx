@@ -1,63 +1,94 @@
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const scrollToSection = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Products & Services", path: "/products" },
-    { name: "Contact", path: "/contact" },
+    { name: "Home", id: "home" },
+    { name: "About", id: "about" },
+    { name: "Products", id: "products" },
+    { name: "Contact", id: "contact" },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+    <header 
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled 
+          ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border" 
+          : "bg-transparent"
+      }`}
+    >
+      <div className="container flex h-20 items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-orange">
+        <button 
+          onClick={() => scrollToSection("home")}
+          className="flex items-center gap-3"
+        >
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary">
             <span className="text-xl font-bold text-primary-foreground">S</span>
           </div>
           <div className="hidden sm:block">
-            <span className="text-lg font-bold text-foreground">Siddhivinayak</span>
-            <span className="block text-xs text-muted-foreground">Enterprises</span>
+            <span className={`text-lg font-bold transition-colors ${isScrolled ? "text-foreground" : "text-secondary-foreground"}`}>
+              Siddhivinayak
+            </span>
+            <span className={`block text-xs transition-colors ${isScrolled ? "text-muted-foreground" : "text-secondary-foreground/70"}`}>
+              Enterprises
+            </span>
           </div>
-        </Link>
+        </button>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
+            <button
+              key={link.id}
+              onClick={() => scrollToSection(link.id)}
               className={`text-sm font-medium transition-colors hover:text-primary ${
-                isActive(link.path) ? "text-primary" : "text-muted-foreground"
+                isScrolled ? "text-muted-foreground" : "text-secondary-foreground/80"
               }`}
             >
               {link.name}
-            </Link>
+            </button>
           ))}
         </nav>
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-4">
-          <a href="tel:+91" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+          <a 
+            href="tel:+91" 
+            className={`flex items-center gap-2 text-sm transition-colors hover:text-primary ${
+              isScrolled ? "text-muted-foreground" : "text-secondary-foreground/80"
+            }`}
+          >
             <Phone className="h-4 w-4" />
             <span>Call Us</span>
           </a>
-          <Button asChild>
-            <Link to="/contact">Get a Quote</Link>
+          <Button onClick={() => scrollToSection("contact")}>
+            Get a Quote
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 text-foreground"
+          className={`md:hidden p-2 transition-colors ${isScrolled ? "text-foreground" : "text-secondary-foreground"}`}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
@@ -67,24 +98,28 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden border-t border-border bg-background animate-fade-in">
-          <nav className="container py-4 flex flex-col gap-4">
+        <div className="md:hidden bg-background border-t border-border animate-fade-in">
+          <nav className="container py-4 flex flex-col gap-2">
             {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={`text-base font-medium py-2 transition-colors ${
-                  isActive(link.path) ? "text-primary" : "text-foreground"
-                }`}
+              <button
+                key={link.id}
+                onClick={() => {
+                  scrollToSection(link.id);
+                  setIsOpen(false);
+                }}
+                className="text-base font-medium py-3 text-foreground hover:text-primary transition-colors text-left"
               >
                 {link.name}
-              </Link>
+              </button>
             ))}
-            <Button asChild className="mt-2">
-              <Link to="/contact" onClick={() => setIsOpen(false)}>
-                Get a Quote
-              </Link>
+            <Button 
+              className="mt-4" 
+              onClick={() => {
+                scrollToSection("contact");
+                setIsOpen(false);
+              }}
+            >
+              Get a Quote
             </Button>
           </nav>
         </div>
