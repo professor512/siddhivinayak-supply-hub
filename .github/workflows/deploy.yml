@@ -3,34 +3,22 @@ name: Deploy React Vite App to VPS
 on:
   push:
     branches:
-      - main   # change if you use master
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Vite project
-        run: npm run build
-
-      - name: Upload build files to VPS
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22
-          source: "dist/*"
-          target: "/var/www/siddhivinayakent.net"
-
+          script: |
+            cd /var/www/siddhivinayakent-frontend
+            git pull origin main
+            npm install
+            npm run build
