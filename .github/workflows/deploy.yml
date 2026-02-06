@@ -1,12 +1,16 @@
-name: SSH Test
+name: Deploy Siddhivinayakent Frontend
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: SSH sanity test
+      - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_IP }}
@@ -14,6 +18,4 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22
           script: |
-            whoami
-            pwd
-            hostname
+            bash /var/www/deploy-scripts/siddhivinayakent.sh
