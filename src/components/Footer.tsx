@@ -45,7 +45,7 @@ const Footer = () => {
             </div>
             <p className="text-background/70 text-sm leading-relaxed mb-6">
               One Stop Solution For All Your Needs. Your trusted partner for industrial
-              materials, safety equipment, and more.
+              materials, safety equipment, and more...
             </p>
             <a
               href="https://www.siddhivinayakent.net"
