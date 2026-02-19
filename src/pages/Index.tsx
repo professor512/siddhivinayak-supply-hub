@@ -53,7 +53,7 @@ const HeroSection = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 animate-fade-in">
             <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            Trusted Industrial Partner Since Years
+            Trusted Industrial Partner Since 2017
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-secondary-foreground mb-6 animate-fade-in-up">
             Siddhivinayak{" "}
@@ -369,34 +369,78 @@ const ContactSection = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const result = contactSchema.safeParse(formData);
-    if (!result.success) {
-      const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
-      result.error.errors.forEach((error) => {
-        const field = error.path[0] as keyof ContactFormData;
-        fieldErrors[field] = error.message;
-      });
-      setErrors(fieldErrors);
-      return;
-    }
+  e.preventDefault();
 
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We'll get back to you soon.",
+  const result = contactSchema.safeParse(formData);
+
+  if (!result.success) {
+    const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
+    result.error.errors.forEach((error) => {
+      const field = error.path[0] as keyof ContactFormData;
+      fieldErrors[field] = error.message;
     });
-  };
+    setErrors(fieldErrors);
+    return;
+  }
+
+  setIsSubmitting(true);
+
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: "74ef85f0-450c-4ba5-9672-ff8d9b59f184", // 🔥 PUT YOUR KEY HERE
+        name: formData.name,
+        company: formData.company,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setIsSubmitted(true);
+      setFormData({
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for contacting us. We'll get back to you soon.",
+      });
+    } else {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    }
+  } catch (error) {
+    toast({
+      title: "Server Error",
+      description: "Unable to send message. Please try again later.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   const contactInfo = [
-    { icon: Globe, label: "Website", value: "www.siddhivinayakent.net" },
-    { icon: Mail, label: "Email", value: "info@siddhivinayakent.net" },
-    { icon: MapPin, label: "Location", value: "Industrial Supply Partner, India" },
+    { icon: Globe, label: "Phone ", value: "+91 9970500500" },
+    { icon: Mail, label: "Email", value: "Siddhivinayakenterprises0104@gmail.com" },
+    { icon: MapPin, label: "Location", value: "B-11, Ganraj Mauli Housing Society, Shahunagar, Chinchwad, Pune-411019" },
   ];
 
   return (
