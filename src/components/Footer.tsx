@@ -44,8 +44,8 @@ const Footer = () => {
               />
             </div>
             <p className="text-background/70 text-sm leading-relaxed mb-6">
-              One Stop Solution For All Your Needs. Your trusted partner for industrial
-              materials, safety equipment, and more...
+              One Stop Solution For All Your Needs. Your trusted partner for
+              industrial materials, safety equipment, and more...
             </p>
             <a
               href="https://www.siddhivinayakent.net"
@@ -96,20 +96,36 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-6">Contact Us</h4>
             <ul className="space-y-4 text-sm">
               <li>
-                <span className="text-background/50 block text-xs uppercase tracking-wider mb-1">Email</span>
-                <a href="mailto:info@siddhivinayakent.net" className="text-background/70 hover:text-primary transition-colors">
-                  info@siddhivinayakent.net
+                <a
+                  href="https://wa.me/919970500500"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
+                  +91 9970500500
+                </a>
+              </li>
+
+              <li>
+                <span className="text-background/50 block text-xs uppercase tracking-wider mb-1">
+                  Email
+                </span>
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=siddhivinayakenterprises0104@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
+                  siddhivinayakenterprises0104@gmail.com
                 </a>
               </li>
               <li>
-                <span className="text-background/50 block text-xs uppercase tracking-wider mb-1">Website</span>
-                <a href="https://www.siddhivinayakent.net" target="_blank" rel="noopener noreferrer" className="text-background/70 hover:text-primary transition-colors">
-                  www.siddhivinayakent.net
-                </a>
-              </li>
-              <li>
-                <span className="text-background/50 block text-xs uppercase tracking-wider mb-1">Location</span>
-                <span className="text-background/70">Industrial Supply Partner, India</span>
+                <span className="text-background/50 block text-xs uppercase tracking-wider mb-1">
+                  Location
+                </span>
+                <span className="text-background/70">
+                  B-11, Ganraj Mauli Housing Society, Shahunagar, Chinchwad, Pune-411019
+                </span>
               </li>
             </ul>
           </div>

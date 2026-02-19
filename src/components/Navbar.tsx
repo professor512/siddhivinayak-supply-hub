@@ -29,12 +29,9 @@ const Navbar = () => {
   ];
 
   return (
-    <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border"
-          : "bg-transparent"
-        }`}
-    >
+    <header className="fixed top-0 z-50 w-full bg-white shadow-md border-b border-border">
+
+    
       <div className="container flex h-20 items-center justify-between">
         {/* Logo */}
         {/* Logo */}
@@ -56,8 +53,8 @@ const Navbar = () => {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className={`text-sm font-medium transition-colors hover:text-primary ${isScrolled ? "text-muted-foreground" : "text-secondary-foreground/80"
-                }`}
+              className="text-sm font-medium text-gray-700 hover:text-primary transition-colors"
+
             >
               {link.name}
             </button>
@@ -67,9 +64,9 @@ const Navbar = () => {
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-4">
           <a
-            href="tel:+91"
-            className={`flex items-center gap-2 text-sm transition-colors hover:text-primary ${isScrolled ? "text-muted-foreground" : "text-secondary-foreground/80"
-              }`}
+            href="https://wa.me/919970500500"
+           className="flex items-center gap-2 text-sm text-gray-700 hover:text-primary transition-colors"
+
           >
             <Phone className="h-4 w-4" />
             <span>Call Us</span>
