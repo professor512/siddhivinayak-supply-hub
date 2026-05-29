@@ -29,23 +29,25 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-white shadow-md border-b border-border">
-
-    
+    <header
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled
+          ? "bg-white shadow-lg border-b border-gray-200"
+          : "bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-100"
+      }`}
+    >
       <div className="container flex h-20 items-center justify-between">
-        {/* Logo */}
         {/* Logo */}
         <button
           onClick={() => scrollToSection("home")}
-          className="flex items-center"
+          className="flex items-center hover:opacity-80 transition-opacity"
         >
           <img
             src="/logo.png"
             alt="Siddhivinayak Enterprise Logo"
-            className="h-11 w-auto object-contain"
+            className="h-12 w-auto object-contain"
           />
         </button>
-
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
@@ -53,10 +55,10 @@ const Navbar = () => {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className="text-sm font-medium text-gray-700 hover:text-primary transition-colors"
-
+              className="text-sm font-semibold text-[#1E293B] hover:text-[#F97316] transition-colors relative group"
             >
               {link.name}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F97316] group-hover:w-full transition-all duration-300"></span>
             </button>
           ))}
         </nav>
@@ -64,21 +66,23 @@ const Navbar = () => {
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-4">
           <a
-            href="https://wa.me/919970500500"
-           className="flex items-center gap-2 text-sm text-gray-700 hover:text-primary transition-colors"
-
+            href="tel:+919970500500"
+            className="flex items-center gap-2 text-sm font-semibold text-[#1E293B] hover:text-[#F97316] transition-colors"
           >
             <Phone className="h-4 w-4" />
-            <span>Call Us</span>
+            <span>+91 9970500500</span>
           </a>
-          <Button onClick={() => scrollToSection("contact")}>
+          <Button
+            onClick={() => scrollToSection("contact")}
+            className="bg-[#F97316] hover:bg-[#F97316]/90 text-white"
+          >
             Get a Quote
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className={`md:hidden p-2 transition-colors ${isScrolled ? "text-foreground" : "text-secondary-foreground"}`}
+          className="md:hidden p-2 text-[#1E293B] hover:text-[#F97316] transition-colors"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
@@ -88,7 +92,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden bg-background border-t border-border animate-fade-in">
+        <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
           <nav className="container py-4 flex flex-col gap-2">
             {navLinks.map((link) => (
               <button
@@ -97,13 +101,20 @@ const Navbar = () => {
                   scrollToSection(link.id);
                   setIsOpen(false);
                 }}
-                className="text-base font-medium py-3 text-foreground hover:text-primary transition-colors text-left"
+                className="text-base font-semibold py-3 text-[#1E293B] hover:text-[#F97316] transition-colors text-left"
               >
                 {link.name}
               </button>
             ))}
+            <a
+              href="tel:+919970500500"
+              className="flex items-center gap-2 text-base font-semibold py-3 text-[#1E293B] hover:text-[#F97316] transition-colors"
+            >
+              <Phone className="h-4 w-4" />
+              <span>+91 9970500500</span>
+            </a>
             <Button
-              className="mt-4"
+              className="mt-4 bg-[#F97316] hover:bg-[#F97316]/90 text-white"
               onClick={() => {
                 scrollToSection("contact");
                 setIsOpen(false);

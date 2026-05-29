@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import WhatsAppButton from "./components/WhatsAppButton";
+import LiveChat from "./components/LiveChat";
 import Index from "./pages/Index";
 
 const queryClient = new QueryClient();
@@ -19,6 +21,8 @@ const App = () => (
           <Index />
         </div>
         <Footer />
+        <WhatsAppButton />
+        <LiveChat />
       </div>
     </TooltipProvider>
   </QueryClientProvider>
